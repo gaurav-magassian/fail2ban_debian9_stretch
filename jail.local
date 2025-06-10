@@ -1,0 +1,52 @@
+[DEFAULT]
+# Ban hosts for 1 hour
+bantime = 3600
+# Retry window of 10 minutes
+findtime = 600
+# Allow 5 retries before banning
+maxretry = 5
+# Use a more container-friendly ban action
+banaction = iptables-multiport
+# Send email notifications
+destemail = root@localhost
+sender = fail2ban@localhost
+action = %(action_mwl)s
+
+[nginx-http-auth]
+enabled = true
+port = http,https
+filter = nginx-http-auth
+logpath = /var/log/nginx/error.log
+maxretry = 3
+
+[nginx-botsearch]
+enabled = true
+port = http,https
+filter = nginx-botsearch
+logpath = /var/log/nginx/access.log
+maxretry = 2
+
+[rails-auth]
+enabled = true
+port = http,https
+filter = rails-auth
+logpath = /var/log/nginx/access.log
+maxretry = 5
+
+[rails-bruteforce]
+enabled = true
+port = http,https
+filter = rails-bruteforce
+logpath = /var/log/nginx/access.log
+maxretry = 10
+findtime = 300
+bantime = 7200
+
+[common-attacks]
+enabled = true
+port = http,https
+filter = common-attacks
+logpath = /var/log/nginx/access.log
+maxretry = 3
+findtime = 300
+bantime = 86400

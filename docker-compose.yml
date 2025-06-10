@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+
+  views_app:
+    build:
+      context: .
+      no_cache: true
+    # command: bundle exec rails s -p 3000 -b '0.0.0.0' -e development
+    command: sleep infinity
+    # command: /usr/bin/supervisord -n
+    ports:
+      - '80:80'
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    privileged: true
